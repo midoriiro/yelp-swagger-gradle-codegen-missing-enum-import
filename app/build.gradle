@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+
+apply plugin: "com.yelp.codegen.plugin"
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+    defaultConfig {
+        applicationId "com.example.myapplication"
+        minSdkVersion 28
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.1.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    // Moshi + OkHttp + Retrofit
+    implementation "com.squareup.moshi:moshi:1.8.0"
+    implementation "com.squareup.moshi:moshi-adapters:1.8.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.8.0"
+    implementation "com.squareup.okhttp3:okhttp:3.12.3"
+    implementation "com.squareup.retrofit2:retrofit:2.6.1"
+    implementation "com.squareup.retrofit2:converter-moshi:2.6.1"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.6.1"
+
+    // Date Support
+    implementation "com.jakewharton.threetenabp:threetenabp:1.2.1"
+
+    // RxJava
+    implementation "io.reactivex.rxjava2:rxjava:2.2.11"
+    implementation "io.reactivex.rxjava2:rxandroid:2.1.1"
+
+    // Testing Dependencies
+    testImplementation "junit:junit:4.12"
+    testImplementation "com.squareup.okhttp3:mockwebserver:3.12.3"
+}
+
+generateSwagger {
+    platform = "kotlin"
+    packageName = "com.example.myapplication"
+    specName = "swagger"
+    inputFile = file("./swagger.json")
+    outputDir = file("./src/main/java/")
+    features {
+        headersToRemove = ["Accept-Language"]
+    }
+}
+
+repositories {
+    mavenCentral()
+}

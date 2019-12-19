@@ -1,0 +1,47 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "my-api",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/my-endpoint": {
+      "get": {
+        "tags": [
+          "MyEndpoint"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                  "$ref": "#/definitions/MyEnum"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "MyEnum": {
+      "enum": [
+        "One",
+        "Two",
+        "Three",
+        "Viva",
+        "Algeria"
+      ],
+      "type": "string"
+    }
+  }
+}
